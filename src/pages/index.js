@@ -71,7 +71,7 @@ export default function() {
 
       setNodeTooltipText(name)
       setNodeToolTipX(point.x + 30)
-      setNodeToolTipY(point.y + 15)
+      setNodeToolTipY(point.y + 20)
       setShowNodeTooltip(true)
     });
 
@@ -144,7 +144,7 @@ export default function() {
 
       graph.data(data);
       graph.render();
-      graph.fitView();
+      // graph.fitView();
 
       bindEvents();
     }
