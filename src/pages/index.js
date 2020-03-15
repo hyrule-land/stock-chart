@@ -3,11 +3,18 @@ import React, { useEffect, useState, useRef } from 'react';
 import styles from './index.less';
 import data from './data';
 import './registerFlowRect'
+import NodeTooltip from './components/NodeTooltip';
 
 
 export default function() {
   const ref = useRef(null);
   let graph = null;
+
+  // 节点tooltip坐标
+  const [showNodeTooltip, setShowNodeTooltip] = useState(false);
+  const [nodeTooltipText, setNodeTooltipText] = useState(0);
+  const [nodeTooltipX, setNodeToolTipX] = useState(0);
+  const [nodeTooltipY, setNodeToolTipY] = useState(0);
 
   /**
    * 创建提示
@@ -29,7 +36,7 @@ export default function() {
       const span = document.createElement('span');
       span.textContent = name;
       tooltip.style.padding = '10px';
-      tooltip.style.background = 'rgba(0,0,0, 0.65)';
+      tooltip.style.background = 'rgba(0,0,0, 0.8)';
       tooltip.style.color = '#fff';
       tooltip.style.borderRadius = '4px';
       tooltip.appendChild(span);
@@ -56,44 +63,20 @@ export default function() {
   };
 
   const bindEvents = () => {
-    graph.on('node:mousemove', evt => {
-      debugger;
-      const { item, target, x, y } = evt;
-      const {
-        attrs: { isNodeShape },
-      } = target;
-      const model = item.getModel();
-      const { name, id } = model;
-      if (isNodeShape) {
-        const position = graph.getClientByPoint(x, y);
-        createTooltip(position, name, id);
-      } else {
-        removeTooltip(id);
-      }
-    });
+    graph.on('node:mouseenter', (evt) => {
+      const { item } = evt
+      const model = item.getModel()
+      const { x, y, name } = model
+      const point = graph.getCanvasByPoint(x, y)
 
-    graph.on('node:mouseout', evt => {
-      const { item, target } = evt;
-      const {
-        attrs: { isNodeShape },
-      } = target;
-      const model = item.getModel();
-      const { id } = model;
-      if (isNodeShape) {
-        removeTooltip(id);
-      }
+      setNodeTooltipText(name)
+      setNodeToolTipX(point.x + 30)
+      setNodeToolTipY(point.y + 15)
+      setShowNodeTooltip(true)
     });
 
     graph.on('node:mouseleave', evt => {
-      const node = evt.item;
-      graph.setItemState(node, 'hover', false);
-      graph.updateItem(node, {
-        style: {
-          ...node._cfg.originStyle,
-          shadowColor: 'transparent',
-          shadowBlur: 0,
-        },
-      });
+      setShowNodeTooltip(false)
     });
   }
 
@@ -173,7 +156,7 @@ export default function() {
   return (
     <div className={styles.container}>
       <div id="chart" className={styles.chart} ref={ref}>
-
+        { showNodeTooltip && <NodeTooltip name={nodeTooltipText} x={nodeTooltipX} y={nodeTooltipY} /> }
       </div>
     </div>
   );
