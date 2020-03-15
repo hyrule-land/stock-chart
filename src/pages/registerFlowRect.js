@@ -37,6 +37,8 @@ G6.registerNode(
         lineWidth: 0.6,
         fontSize: 12,
         opacity: 1,
+        isNodeShape: true,
+        cursor: 'pointer',
       };
 
       // 根据节点类型设置节点颜色
@@ -81,7 +83,7 @@ G6.registerNode(
         fontSize: 14,
         fill: '#000',
         cursor: 'pointer',
-        isTitleShape: true,
+        isNodeShape: true,
       };
 
       if (nodeType === 'root') {
