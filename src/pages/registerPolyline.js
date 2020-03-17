@@ -1,9 +1,21 @@
 import G6 from '@antv/g6';
+import colors from './colors';
 
 G6.registerEdge('polyline', {
   itemType: 'edge',
   draw: function draw(cfg, group) {
     debugger;
+    const { target } = cfg;
+    const targetModel = target.getModel();
+
+    const { tzbl, nodeType } = targetModel;
+    let strokeColor = colors.upstream.stroke;
+    if (nodeType === 'gd-node') {
+      strokeColor = colors.upstream.stroke;
+    } else if (nodeType === 'tz-node') {
+      strokeColor = colors.downstream.stroke;
+    }
+
     const startPoint = cfg.startPoint;
     const endPoint = cfg.endPoint;
 
@@ -55,7 +67,7 @@ G6.registerEdge('polyline', {
     const line = group.addShape('path', {
       attrs: {
         path,
-        stroke: 'cyan',
+        stroke: strokeColor,
         lineWidth: 1.2,
         endArrow: false
       }
@@ -64,12 +76,12 @@ G6.registerEdge('polyline', {
     const labelLeftOffset = 8;
     const labelTopOffset = 8;
     // amount
-    const amount = group.addShape('text', {
+    group.addShape('text', {
       attrs: {
-        text: 'cfg.data.amount',
+        text: `投资比例: ${tzbl ? (tzbl * 100).toFixed(2) : '--'}%`,
         x: line2StartPoint.x + labelLeftOffset,
         y: endPoint.y - labelTopOffset - 2,
-        fontSize: 14,
+        fontSize: 11,
         textAlign: 'left',
         textBaseline: 'middle',
         fill: '#000000D9'

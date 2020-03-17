@@ -1,18 +1,5 @@
 import G6 from '@antv/g6';
-
-const upstreamColors = {
-  fill: '#c6e5ff',
-  stroke: '#6092f9',
-};
-
-const downstreamColors = {
-  fill: '#c6ffe6',
-  stroke: '#1aba74',
-};
-
-const rootColors = {
-
-}
+import colors from './colors';
 
 G6.registerNode(
   'flow-rect', {
@@ -55,14 +42,14 @@ G6.registerNode(
       } else if (nodeType === 'gd-node') {
         rectConfig = {
           ...rectConfig,
-          fill: upstreamColors.fill,
-          stroke: upstreamColors.stroke,
+          fill: colors.upstream.fill,
+          stroke: colors.upstream.stroke,
         }
       } else if (nodeType === 'tz-node') {
         rectConfig = {
           ...rectConfig,
-          fill: downstreamColors.fill,
-          stroke: downstreamColors.stroke,
+          fill: colors.downstream.fill,
+          stroke: colors.downstream.stroke,
         }
       }
 
@@ -98,12 +85,12 @@ G6.registerNode(
       } else if (nodeType === 'gd-node') {
         textConfig = {
           ...textConfig,
-          fill: upstreamColors.stroke
+          fill: colors.upstream.stroke
         }
       } else if (nodeType === 'tz-node') {
         textConfig = {
           ...textConfig,
-          fill: downstreamColors.stroke
+          fill: colors.downstream.stroke
         }
       }
 
@@ -198,11 +185,8 @@ G6.registerNode(
         }
       }
     },
-    getAnchorPoints() {
-      return [
-        [0, 0.5],
-        [1, 0.5],
-      ];
+    getAnchorPoints: function getAnchorPoints() {
+      return [[0, 0.5], [1, 0.5]];
     },
   },
   // 注意这里继承了 'single-shape'

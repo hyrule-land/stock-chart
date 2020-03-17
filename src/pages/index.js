@@ -74,7 +74,7 @@ export default function() {
           getHeight: () => 20,
           getWidth: () => 50,
           getVGap: () => 12,
-          getHGap: () => 150,
+          getHGap: () => 140,
           getSide: d => {
             if (d.data.nodeType === 'gd-node') {
               return 'left';
