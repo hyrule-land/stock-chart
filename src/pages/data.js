@@ -1,13 +1,17 @@
+const anchorPoints = [[0, 0.5], [1, 0.5]];
+
 export default {
   "id": "9f7f4a3f-9590-427b-afcf-8eaf8494e06e",
   "name": "招商银行股份有限公司招商银行股份有限公司招商银行股份有限公司招商银行股份有限公司",
   "nodeType": "root",
   "nsrsbh": "9144030010001686XA",
+  anchorPoints,
   "children": [
     {
       "id": "cd07efc3-2128-44c8-beeb-caddce64e2dd",
       "nodeType": "gd-node",
       "name": "招商1111公司",
+      anchorPoints,
       "data": {
         "nsrsbh": "9144030010001686XA",
         "nsrmc": "招商银行股份有限公司",
@@ -22,6 +26,7 @@ export default {
       "id": "c8a19b5d-cbc2-4a0f-91ff-c5338daafb6d",
       "nodeType": "gd-node",
       "name": "广州1111限公司",
+      anchorPoints,
       "data": {
         "nsrsbh": "9144030010001686XA",
         "nsrmc": "招商银行股份有限公司",
@@ -35,7 +40,8 @@ export default {
     {
       "id": "6845c15e-fc3b-4376-b082-bbd1a6e76d34",
       "nodeType": "gd-node",
-      "name": "中国1111）公司",
+      "name": "中国1111）公司（左边）",
+      anchorPoints,
       "data": {
         "nsrsbh": "9144030010001686XA",
         "nsrmc": "招商银行股份有限公司",
@@ -46,24 +52,26 @@ export default {
       },
       "tzbl": 0.01
     },
-    {
-      "id": "a1b42164-f367-4686-bdc1-2174c719435a",
-      "nodeType": "gd-node",
-      "name": "中国1111司",
-      "data": {
-        "nsrsbh": "9144030010001686XA",
-        "nsrmc": "招商银行股份有限公司",
-        "djxh": "10114403000025550848",
-        "tzfhhhrmc": "中国1111司",
-        "tzbl": 0.01,
-        "lrrq": "2018-05-21T09:06:42.000+0000"
-      },
-      "tzbl": 0.01
-    },
+    // {
+    //   "id": "a1b42164-f367-4686-bdc1-2174c719435a",
+    //   "nodeType": "gd-node",
+    //   "name": "中国1111司",
+    //   anchorPoints,
+    //   "data": {
+    //     "nsrsbh": "9144030010001686XA",
+    //     "nsrmc": "招商银行股份有限公司",
+    //     "djxh": "10114403000025550848",
+    //     "tzfhhhrmc": "中国1111司",
+    //     "tzbl": 0.01,
+    //     "lrrq": "2018-05-21T09:06:42.000+0000"
+    //   },
+    //   "tzbl": 0.01
+    // },
     {
       "id": "89efb9cb-a0c2-4381-940c-d1d9287495f6",
       "nodeType": "gd-node",
       "name": "深圳1111有限公司",
+      anchorPoints,
       "data": {
         "nsrsbh": "9144030010001686XA",
         "nsrmc": "招商银行股份有限公司",
@@ -79,6 +87,7 @@ export default {
       "id": "9771e8b5-d843-494e-9214-dcc3ffd11e5a",
       "nodeType": "gd-node",
       "name": "深圳1111有限公司",
+      anchorPoints,
       "data": {
         "nsrsbh": "9144030010001686XA",
         "nsrmc": "招商银行股份有限公司",
@@ -95,6 +104,7 @@ export default {
       "nodeType": "tz-node",
       "name": "招商信诺人寿保险有限公司",
       "nsrsbh": "91440000710931571W",
+      anchorPoints,
       "data": {
         "nsrsbh": "91440000710931571W",
         "nsrmc": "招商信诺人寿保险有限公司",
@@ -126,11 +136,13 @@ export default {
           "x": 375,
           "y": -170,
           "depth": 2,
+          anchorPoints,
           children: [
             {
               "id": "96e4e715-6b11-41f0-ad70-2c627ffb7927",
               "nodeType": "gd-node",
               "name": "招商1111公司",
+              anchorPoints,
               "data": {
                 "nsrsbh": "9144030010001686XA",
                 "nsrmc": "招商银行股份有限公司",
@@ -148,6 +160,7 @@ export default {
               "id": "99c2675f-3ad9-4fdf-8273-240f88abec86",
               "nodeType": "gd-node",
               "name": "广州1111限公司",
+              anchorPoints,
               "data": {
                 "nsrsbh": "9144030010001686XA",
                 "nsrmc": "招商银行股份有限公司",
@@ -165,6 +178,7 @@ export default {
               "id": "e8ae97cd-6697-49bf-9c93-811679271f81",
               "nodeType": "gd-node",
               "name": "中国1111）公司",
+              anchorPoints,
               "data": {
                 "nsrsbh": "9144030010001686XA",
                 "nsrmc": "招商银行股份有限公司",
@@ -181,7 +195,44 @@ export default {
             {
               "id": "2c882890-9040-4eb8-a5f8-7adc67a32300",
               "nodeType": "gd-node",
-              "name": "中国1111司",
+              "name": "右边异常节点1",
+              anchorPoints,
+              "data": {
+                "nsrsbh": "9144030010001686XA",
+                "nsrmc": "招商银行股份有限公司",
+                "djxh": "10114403000025550848",
+                "tzfhhhrmc": "中国1111司",
+                "tzbl": 0.01,
+                "lrrq": "2018-05-21T09:06:42.000+0000"
+              },
+              "tzbl": 0.01,
+              "x": 725,
+              "y": -420,
+              "depth": 3
+            },
+            {
+              "id": "2c882890-9040-4eb8-a5f8-7adc67a32300aaa",
+              "nodeType": "gd-node",
+              "name": "右边异常节点2",
+              anchorPoints,
+              "data": {
+                "nsrsbh": "9144030010001686XA",
+                "nsrmc": "招商银行股份有限公司",
+                "djxh": "10114403000025550848",
+                "tzfhhhrmc": "中国1111司",
+                "tzbl": 0.01,
+                "lrrq": "2018-05-21T09:06:42.000+0000"
+              },
+              "tzbl": 0.01,
+              "x": 725,
+              "y": -420,
+              "depth": 3
+            },
+            {
+              "id": "2c882890-9040-4eb8-a5f8-7adc67a32300abc",
+              "nodeType": "gd-node",
+              "name": "右边异常节点3",
+              anchorPoints,
               "data": {
                 "nsrsbh": "9144030010001686XA",
                 "nsrmc": "招商银行股份有限公司",
@@ -199,6 +250,7 @@ export default {
               "id": "a909ce5b-ea90-40c0-b3f6-8596aa26fd35",
               "nodeType": "gd-node",
               "name": "深圳1111有限公司",
+              anchorPoints,
               "data": {
                 "nsrsbh": "9144030010001686XA",
                 "nsrmc": "招商银行股份有限公司",
@@ -217,6 +269,7 @@ export default {
               "id": "1bc24429-2e10-4ad4-a3bb-93226723d78a",
               "nodeType": "gd-node",
               "name": "深圳1111有限公司",
+              anchorPoints,
               "data": {
                 "nsrsbh": "9144030010001686XA",
                 "nsrmc": "招商银行股份有限公司",
@@ -236,6 +289,7 @@ export default {
               "nodeType": "tz-node",
               "name": "招商信诺人寿保险有限公司",
               "nsrsbh": "91440000710931571W",
+              anchorPoints,
               "data": {
                 "nsrsbh": "91440000710931571W",
                 "nsrmc": "招商信诺人寿保险有限公司",
@@ -256,6 +310,7 @@ export default {
               "nodeType": "tz-node",
               "name": "招商基金管理有限公司",
               "nsrsbh": "9144030071093625X4",
+              anchorPoints,
               "data": {
                 "nsrsbh": "9144030071093625X4",
                 "nsrmc": "招商基金管理有限公司",
@@ -277,6 +332,7 @@ export default {
           "id": "f680e318-5428-4460-ac12-3f47befef863",
           "nodeType": "gd-node",
           "name": "信诺1111司",
+          anchorPoints,
           "data": {
             "nsrsbh": "91440000710931571W",
             "nsrmc": "招商信诺人寿保险有限公司",
@@ -297,6 +353,7 @@ export default {
       "nodeType": "tz-node",
       "name": "招商基金管理有限公司",
       "nsrsbh": "9144030071093625X4",
+      anchorPoints,
       "data": {
         "nsrsbh": "9144030071093625X4",
         "nsrmc": "招商基金管理有限公司",

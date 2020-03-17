@@ -24,6 +24,9 @@ export default function() {
       const { x, y, name } = model
       const point = graph.getCanvasByPoint(x, y)
 
+      const edges = item.getEdges();
+      edges.forEach(edge => graph.setItemState(edge, 'running', true));
+
       setNodeTooltipText(name)
       setNodeToolTipX(point.x + 31)
       setNodeToolTipY(point.y + 32)
@@ -31,8 +34,23 @@ export default function() {
     });
 
     graph.on('node:mouseleave', evt => {
+      const { item } = evt
+      const edges = item.getEdges();
+      edges.forEach(edge => graph.setItemState(edge, 'running', false));
       setShowNodeTooltip(false)
     });
+
+    // 响应 hover 状态
+    // graph.on('node:mouseenter', ev => {
+    //   const node = ev.item;
+    //   const edges = node.getEdges();
+    //   edges.forEach(edge => graph.setItemState(edge, 'running', true));
+    // });
+    // graph.on('node:mouseleave', ev => {
+    //   const node = ev.item;
+    //   const edges = node.getEdges();
+    //   edges.forEach(edge => graph.setItemState(edge, 'running', false));
+    // });
   }
 
 
@@ -63,7 +81,15 @@ export default function() {
           style: {
             stroke: '#72CC4A',
             width: 170
-          }
+          },
+          // linkPoints: {
+          //   top: true,
+          //   bottom: true,
+          //   left: true,
+          //   right: true,
+          //   size: 5,
+          //   fill: '#fff',
+          // },
         },
         defaultEdge: {
           shape: 'polyline'
@@ -74,7 +100,12 @@ export default function() {
           getHeight: () => 20,
           getWidth: () => 50,
           getVGap: () => 12,
-          getHGap: () => 140,
+          getHGap: (d) => {
+            if (d.nodeType && d.nodeType === 'root') {
+              return 180
+            }
+            return 140
+          },
           getSide: d => {
             if (d.data.nodeType === 'gd-node') {
               return 'left';

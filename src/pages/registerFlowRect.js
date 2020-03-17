@@ -7,8 +7,6 @@ G6.registerNode(
     draw(cfg, group) {
       const {
         name = '',
-        hasChildren = true,
-        tzbl = '',
         nodeType,
         style: {
           width = 170,
@@ -101,48 +99,56 @@ G6.registerNode(
       });
 
 
-      // // label count
-      // group.addShape('text', {
-      //   attrs: {
-      //     ...textConfig,
-      //     x: 12,
-      //     y: 34,
-      //     text: totalFinishIncomeAmtString,
-      //     fontSize: 14,
-      //     fill: '#000',
-      //   },
-      // });
+      // 添加锚点
+      let pointColor = colors.upstream.stroke;
+      let pointY = 15;
+      let nodeWidth = width;
+      if (nodeType === 'root') {
+        pointColor = '#ffab2a';
+        pointY = 25;
+        nodeWidth = 250;
+      } else if (nodeType === 'gd-node') {
+        pointColor = colors.upstream.stroke;
+      } else if (nodeType === 'tz-node') {
+        pointColor = colors.downstream.stroke;
+      }
 
-
-      if (hasChildren) {
-        // collapse circle
-        // group.addShape('circle', {
-        //   attrs: {
-        //     x: rectConfig.width,
-        //     y: rectConfig.height / 2,
-        //     r: 8,
-        //     stroke: lightColor,
-        //     fill: collapsed ? lightColor : '#fff',
-        //     isCollapseShape: true,
-        //   },
-        // });
-        //
-        // // collpase text
-        // group.addShape('text', {
-        //   attrs: {
-        //     x: rectConfig.width,
-        //     y: rectConfig.height / 2,
-        //     width: 16,
-        //     height: 16,
-        //     textAlign: 'center',
-        //     textBaseline: 'middle',
-        //     text: collapsed ? '+' : '-',
-        //     fontSize: 16,
-        //     fill: collapsed ? '#fff' : lightColor,
-        //     cursor: 'pointer',
-        //     isCollapseShape: true,
-        //   },
-        // });
+      if (nodeType === 'root') {
+        group.addShape('circle', {
+          attrs: {
+            x: 0,
+            y: pointY,
+            r: 4,
+            fill: '#fff',
+            stroke: pointColor,
+          }
+        });
+        group.addShape('circle', {
+          attrs: {
+            x: nodeWidth,
+            y: pointY,
+            r: 4,
+            fill: '#fff',
+            stroke: pointColor,
+          }
+        });
+      } else {
+        group.addShape('circle', {
+          attrs: {
+            x: 0,
+            y: pointY,
+            r: 3,
+            fill: pointColor
+          }
+        });
+        group.addShape('circle', {
+          attrs: {
+            x: nodeWidth,
+            y: pointY,
+            r: 3,
+            fill: pointColor
+          }
+        });
       }
 
       this.drawLinkPoints(cfg, group);
