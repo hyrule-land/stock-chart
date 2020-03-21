@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import styles from './index.less';
 import data from './data';
 import './registerFlowRect'
+import './registerPolyline'
 import NodeTooltip from './components/NodeTooltip';
 
 
@@ -16,52 +17,6 @@ export default function() {
   const [nodeTooltipX, setNodeToolTipX] = useState(0);
   const [nodeTooltipY, setNodeToolTipY] = useState(0);
 
-  /**
-   * 创建提示
-   * @param position
-   * @param name
-   * @param id
-   */
-  const createTooltip = (position, name, id) => {
-    const offsetTop = -60;
-    const existTooltip = document.getElementById(id);
-    const x = position.x + 'px';
-    const y = position.y + offsetTop + 'px';
-    if (existTooltip) {
-      existTooltip.style.left = x;
-      existTooltip.style.top = y;
-    } else {
-      // content
-      const tooltip = document.createElement('div');
-      const span = document.createElement('span');
-      span.textContent = name;
-      tooltip.style.padding = '10px';
-      tooltip.style.background = 'rgba(0,0,0, 0.8)';
-      tooltip.style.color = '#fff';
-      tooltip.style.borderRadius = '4px';
-      tooltip.appendChild(span);
-      // box
-      const div = document.createElement('div');
-      div.style.position = 'absolute';
-      div.style.zIndex = '99';
-      div.id = id;
-      div.style.left = x;
-      div.style.top = y;
-      div.appendChild(tooltip);
-      document.body.appendChild(div);
-    }
-  };
-  /**
-   * 删除提示
-   * @param id
-   */
-  const removeTooltip = id => {
-    const removeNode = document.getElementById(id);
-    if (removeNode) {
-      document.body.removeChild(removeNode);
-    }
-  };
-
   const bindEvents = () => {
     graph.on('node:mouseenter', (evt) => {
       const { item } = evt
@@ -69,15 +24,33 @@ export default function() {
       const { x, y, name } = model
       const point = graph.getCanvasByPoint(x, y)
 
+      const edges = item.getEdges();
+      edges.forEach(edge => graph.setItemState(edge, 'running', true));
+
       setNodeTooltipText(name)
-      setNodeToolTipX(point.x + 30)
-      setNodeToolTipY(point.y + 20)
+      setNodeToolTipX(point.x + 31)
+      setNodeToolTipY(point.y + 32)
       setShowNodeTooltip(true)
     });
 
     graph.on('node:mouseleave', evt => {
+      const { item } = evt
+      const edges = item.getEdges();
+      edges.forEach(edge => graph.setItemState(edge, 'running', false));
       setShowNodeTooltip(false)
     });
+
+    // 响应 hover 状态
+    // graph.on('node:mouseenter', ev => {
+    //   const node = ev.item;
+    //   const edges = node.getEdges();
+    //   edges.forEach(edge => graph.setItemState(edge, 'running', true));
+    // });
+    // graph.on('node:mouseleave', ev => {
+    //   const node = ev.item;
+    //   const edges = node.getEdges();
+    //   edges.forEach(edge => graph.setItemState(edge, 'running', false));
+    // });
   }
 
 
@@ -108,13 +81,18 @@ export default function() {
           style: {
             stroke: '#72CC4A',
             width: 170
-          }
+          },
+          // linkPoints: {
+          //   top: true,
+          //   bottom: true,
+          //   left: true,
+          //   right: true,
+          //   size: 5,
+          //   fill: '#fff',
+          // },
         },
         defaultEdge: {
-          type: 'cubic-horizontal',
-          style: {
-            stroke: '#A3B1BF',
-          },
+          shape: 'polyline'
         },
         layout: {
           type: 'mindmap',
@@ -122,11 +100,16 @@ export default function() {
           getHeight: () => 20,
           getWidth: () => 50,
           getVGap: () => 12,
-          getHGap: () => 150,
+          getHGap: (d) => {
+            if (d.nodeType && d.nodeType === 'root') {
+              return 180
+            }
+            return 140
+          },
           getSide: d => {
-            // if (d.data.nodeType === 'gd-node') {
-            //   return 'left';
-            // }
+            if (d.data.nodeType === 'gd-node') {
+              return 'left';
+            }
             return 'right';
           },
         },
