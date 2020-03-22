@@ -1,3 +1,9 @@
+/**
+ * @Description:
+ * @author qinhui
+ * @date 2020/3/21
+*/
+
 import React from 'react'
 import styles from './NodeTooltip.less'
 const NodeToolTips = (props) => {

@@ -138,9 +138,25 @@ export default function() {
 
   return (
     <div className={styles.container}>
-      <div id="chart" className={styles.chart} ref={ref}>
-        { showNodeTooltip && <NodeTooltip name={nodeTooltipText} x={nodeTooltipX} y={nodeTooltipY} /> }
+
+      <div className={styles.studio}>
+        <div className={styles.top}>
+          这是按钮区
+        </div>
+
+        <div className={styles.bottom}>
+          <div className={styles.bottomLeft}>左边</div>
+          <div className={styles.bottomRight}>
+            <div id="chart" className={styles.chart} ref={ref}>
+              { showNodeTooltip && <NodeTooltip name={nodeTooltipText} x={nodeTooltipX} y={nodeTooltipY} /> }
+            </div>
+          </div>
+        </div>
       </div>
+
+
+
+
     </div>
   );
 }
