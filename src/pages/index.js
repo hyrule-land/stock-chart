@@ -138,13 +138,24 @@ export default function() {
 
   }, [])
 
+  function onSetFull() {
+    console.log('进入全屏')
+    if (graph) {
+      graph.changeSize(600, 350);
+    }
+  }
+
+  function onExitFull() {
+    console.log('退出全屏')
+  }
+
 
   // 保存之前的 style 的状态
   const originStyle = {};
-  function toggleFullScreen() {
-    const targetDom = studioRef.current;
+  function toggleFullScreen(domRef, fullScreenStatus, onSetFullCallback, onExitFullCallback) {
+    const targetDom = domRef.current;
 
-    if (!isFullScreen) {
+    if (fullScreenStatus) {
       if (targetDom.style.length && targetDom.style.length > 0) {
         for (let i = 0; i < targetDom.style.length; i += 1) {
           const tempStyleAttr = targetDom.style[i];
@@ -171,12 +182,14 @@ export default function() {
         targetDom.style[attr] = targetStyle[attr];
       }
       setIsFullScreen(true)
+      onSetFullCallback()
     } else {
       targetDom.style.cssText = '';
       for (const attr in originStyle) {
         targetDom.style[attr] = originStyle[attr];
       }
       setIsFullScreen(false)
+      onExitFullCallback()
     }
   }
 
@@ -185,8 +198,8 @@ export default function() {
 
       <div className={styles.studio} ref={studioRef}>
         <div className={styles.top}>
-          <Button type="dashed" onClick={toggleFullScreen}>放大</Button>
-          <Button type="dashed" onClick={toggleFullScreen}>缩小</Button>
+          <Button type="dashed" onClick={() => toggleFullScreen(studioRef, true, onSetFull, onExitFull)}>放大</Button>
+          <Button type="dashed" onClick={() => toggleFullScreen(studioRef, false, onSetFull, onExitFull)}>缩小</Button>
         </div>
 
         <div className={styles.bottom}>
