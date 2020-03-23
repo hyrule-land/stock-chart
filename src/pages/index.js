@@ -7,11 +7,10 @@ import './registerFlowRect'
 import './registerPolyline'
 import NodeTooltip from './components/NodeTooltip';
 
+let graph = null;
 export default function() {
   const ref = useRef(null);
   const studioRef = useRef(null);
-  let graph = null;
-
   // 节点tooltip坐标
   const [showNodeTooltip, setShowNodeTooltip] = useState(false);
   const [nodeTooltipText, setNodeTooltipText] = useState(0);
@@ -139,14 +138,21 @@ export default function() {
   }, [])
 
   function onSetFull() {
-    console.log('进入全屏')
+    debugger
     if (graph) {
-      graph.changeSize(600, 350);
+      const containerDom = ref.current;
+      debugger;
+      graph.changeSize(containerDom.offsetWidth, containerDom.offsetHeight);
     }
   }
 
   function onExitFull() {
-    console.log('退出全屏')
+    debugger
+    if (graph) {
+      const containerDom = ref.current;
+      debugger;
+      graph.changeSize(containerDom.offsetWidth, containerDom.offsetHeight);
+    }
   }
 
 
@@ -181,14 +187,14 @@ export default function() {
       for (const attr in targetStyle) {
         targetDom.style[attr] = targetStyle[attr];
       }
-      setIsFullScreen(true)
+      // setIsFullScreen(true)
       onSetFullCallback()
     } else {
       targetDom.style.cssText = '';
       for (const attr in originStyle) {
         targetDom.style[attr] = originStyle[attr];
       }
-      setIsFullScreen(false)
+      // setIsFullScreen(false)
       onExitFullCallback()
     }
   }
