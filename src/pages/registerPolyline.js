@@ -199,33 +199,34 @@ G6.registerEdge('polyline', {
 
     return line;
   },
-  setState(name, value, item) {
-    const shape = item.get('keyShape');
-    if (name === 'running') {
-      if (value) {
-        const length = shape.getTotalLength(); // 后续 G 增加 totalLength 的接口
-        let totalArray = [];
-        for (let i = 0; i < length; i += interval) {
-          totalArray = totalArray.concat(lineDash);
-        }
-        let index = 0;
-        shape.animate(
-          () => {
-            const cfg = {
-              lineDash: dashArray[index].concat(totalArray),
-            };
-            index = (index + 1) % interval;
-            return cfg;
-          },
-          {
-            repeat: true,
-            duration: 6000,
-          },
-        );
-      } else {
-        shape.stopAnimate();
-        shape.attr('lineDash', null);
-      }
-    }
-  },
+  // setState(name, value, item) {
+  //   debugger;
+  //   const shape = item.get('keyShape');
+  //   if (name === 'running') {
+  //     if (value) {
+  //       const length = shape.getTotalLength(); // 后续 G 增加 totalLength 的接口
+  //       let totalArray = [];
+  //       for (let i = 0; i < length; i += interval) {
+  //         totalArray = totalArray.concat(lineDash);
+  //       }
+  //       let index = 0;
+  //       shape.animate(
+  //         () => {
+  //           const cfg = {
+  //             lineDash: dashArray[index].concat(totalArray),
+  //           };
+  //           index = (index + 1) % interval;
+  //           return cfg;
+  //         },
+  //         {
+  //           repeat: true,
+  //           duration: 6000,
+  //         },
+  //       );
+  //     } else {
+  //       shape.stopAnimate();
+  //       shape.attr('lineDash', null);
+  //     }
+  //   }
+  // },
 });
