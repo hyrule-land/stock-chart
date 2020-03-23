@@ -1,14 +1,15 @@
 import G6 from '@antv/g6';
 import React, { useEffect, useState, useRef } from 'react';
+import { Button } from 'antd';
 import styles from './index.less';
 import data from './data';
 import './registerFlowRect'
 import './registerPolyline'
 import NodeTooltip from './components/NodeTooltip';
 
-
 export default function() {
   const ref = useRef(null);
+  const studioRef = useRef(null);
   let graph = null;
 
   // 节点tooltip坐标
@@ -16,6 +17,7 @@ export default function() {
   const [nodeTooltipText, setNodeTooltipText] = useState(0);
   const [nodeTooltipX, setNodeToolTipX] = useState(0);
   const [nodeTooltipY, setNodeToolTipY] = useState(0);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   const bindEvents = () => {
     graph.on('node:mouseenter', (evt) => {
@@ -136,11 +138,67 @@ export default function() {
 
   }, [])
 
+
+  // 保存之前的 style 的状态
+  const originStyle = {};
+  function toggleFullScreen() {
+    const targetDom = studioRef.current;
+
+    if (!isFullScreen) {
+      if (targetDom.style.length && targetDom.style.length > 0) {
+        for (let i = 0; i < targetDom.style.length; i += 1) {
+          const tempStyleAttr = targetDom.style[i];
+          originStyle[tempStyleAttr] = targetDom.style[tempStyleAttr];
+        }
+      }
+
+      const extraStyle = {
+        position: 'fixed',
+        top: '0px',
+        right: '0px',
+        bottom: '0px',
+        left: '0px',
+        width: '100%',
+        height: '100%',
+      }
+
+      const targetStyle = {
+        ...originStyle,
+        ...extraStyle,
+      }
+
+      for (const attr in targetStyle) {
+        targetDom.style[attr] = targetStyle[attr];
+      }
+      setIsFullScreen(true)
+    } else {
+      targetDom.style.cssText = '';
+      for (const attr in originStyle) {
+        targetDom.style[attr] = originStyle[attr];
+      }
+      setIsFullScreen(false)
+    }
+  }
+
   return (
     <div className={styles.container}>
-      <div id="chart" className={styles.chart} ref={ref}>
-        { showNodeTooltip && <NodeTooltip name={nodeTooltipText} x={nodeTooltipX} y={nodeTooltipY} /> }
+
+      <div className={styles.studio} ref={studioRef}>
+        <div className={styles.top}>
+          <Button type="dashed" onClick={toggleFullScreen}>放大</Button>
+          <Button type="dashed" onClick={toggleFullScreen}>缩小</Button>
+        </div>
+
+        <div className={styles.bottom}>
+          <div className={styles.bottomLeft}>左边</div>
+          <div className={styles.bottomRight}>
+            <div id="chart" className={styles.chart} ref={ref}>
+              { showNodeTooltip && <NodeTooltip name={nodeTooltipText} x={nodeTooltipX} y={nodeTooltipY} /> }
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
   );
 }
